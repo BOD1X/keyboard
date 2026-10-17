@@ -1,0 +1,530 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Клавіатура fullsize</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=Manrope:wght@400;500;700&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: один CSS grid на 92 колонки по 1/4 клавіші (основний блок 60, навігація 12, цифровий 16) і 7 рядків. */
+:root {
+  --font-display: "Unbounded", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-key: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+
+  --u: clamp(26px, calc((100vw - 56px) / 24.2), 46px);
+
+  --bg: #e4e8ee;
+  --panel: #eef1f5;
+  --fg: #1b2230;
+  --muted: #566074;
+  --line: #c0c8d4;
+  --focus: #1f6feb;
+
+  --case-hi: #e0e4ea;
+  --case-lo: #b5bcc9;
+  --case-rim: #8892a3;
+  --cable: #5d6573;
+
+  --key-hi: #fbfbfc;
+  --key-lo: #e1e5ea;
+  --key-edge: #8d96a6;
+  --key-shadow: rgba(30, 40, 60, .38);
+  --key-gloss: rgba(255, 255, 255, .95);
+  --key-fg: #1f2735;
+  --key-fg2: #566074;
+
+  --hover-hi: #f3f8ff;
+  --hover-lo: #d3e3fa;
+  --hover-edge: #7b90b2;
+  --hover-fg: #12263f;
+
+  --down-hi: #f7a652;
+  --down-lo: #ee8a24;
+  --down-edge: #b25d0c;
+  --down-fg: #2a1503;
+
+  --used-hi: #e2f3ee;
+  --used-lo: #c1e1d8;
+  --used-edge: #7ea79b;
+  --used-fg: #12493f;
+
+  --on-hi: #ffeeb8;
+  --on-lo: #f5d36c;
+  --on-edge: #b08a1f;
+  --on-fg: #3b2b00;
+
+  --dis-hi: #d5d9e0;
+  --dis-lo: #c9ced7;
+  --dis-edge: #adb4c0;
+  --dis-fg: #8b94a4;
+
+  --led-off: #8a91a0;
+  --led-on: #ffb21a;
+  --led-glow: rgba(255, 178, 26, .75);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #10141b; --panel: #171c25; --fg: #e7ebf2; --muted: #9aa5b8; --line: #2a3240; --focus: #6aa6ff;
+    --case-hi: #384050; --case-lo: #232832; --case-rim: #0d1015; --cable: #8a93a5;
+    --key-hi: #4b5465; --key-lo: #3a4150; --key-edge: #181c24; --key-shadow: rgba(0, 0, 0, .6); --key-gloss: rgba(255, 255, 255, .2); --key-fg: #eef1f6; --key-fg2: #aab3c4;
+    --hover-hi: #5f7396; --hover-lo: #4a5c7e; --hover-edge: #1f2a40; --hover-fg: #f4f8ff;
+    --down-hi: #ffb766; --down-lo: #f39a3a; --down-edge: #7a4309; --down-fg: #241200;
+    --used-hi: #31695f; --used-lo: #255549; --used-edge: #112b25; --used-fg: #d9f6ee;
+    --on-hi: #a98428; --on-lo: #8d6b1a; --on-edge: #3a2a05; --on-fg: #fff3d1;
+    --dis-hi: #2f3541; --dis-lo: #2a2f3a; --dis-edge: #1e222b; --dis-fg: #6b7587;
+    --led-off: #4b5363;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #10141b; --panel: #171c25; --fg: #e7ebf2; --muted: #9aa5b8; --line: #2a3240; --focus: #6aa6ff;
+  --case-hi: #384050; --case-lo: #232832; --case-rim: #0d1015; --cable: #8a93a5;
+  --key-hi: #4b5465; --key-lo: #3a4150; --key-edge: #181c24; --key-shadow: rgba(0, 0, 0, .6); --key-gloss: rgba(255, 255, 255, .2); --key-fg: #eef1f6; --key-fg2: #aab3c4;
+  --hover-hi: #5f7396; --hover-lo: #4a5c7e; --hover-edge: #1f2a40; --hover-fg: #f4f8ff;
+  --down-hi: #ffb766; --down-lo: #f39a3a; --down-edge: #7a4309; --down-fg: #241200;
+  --used-hi: #31695f; --used-lo: #255549; --used-edge: #112b25; --used-fg: #d9f6ee;
+  --on-hi: #a98428; --on-lo: #8d6b1a; --on-edge: #3a2a05; --on-fg: #fff3d1;
+  --dis-hi: #2f3541; --dis-lo: #2a2f3a; --dis-edge: #1e222b; --dis-fg: #6b7587;
+  --led-off: #4b5363;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 1rem/1.5 var(--font-body);
+  padding-block: clamp(20px, 4vw, 48px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 1180px; margin-inline: auto; display: grid; gap: clamp(20px, 3vw, 32px); }
+
+/* ---------- Заголовок ---------- */
+.head { display: grid; gap: 10px; }
+.eyebrow { margin: 0; font: 600 .75rem/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font: 700 clamp(1.7rem, 4.4vw, 2.7rem)/1.1 var(--font-display); letter-spacing: -.02em; text-wrap: balance; }
+.lead { margin: 0; max-width: 62ch; color: var(--muted); }
+
+/* ---------- Керування ---------- */
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.btn {
+  font: 600 .875rem/1 var(--font-body);
+  padding: .7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--fg);
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--muted); }
+.btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.readout { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; min-width: 0; }
+.readout dl { margin: 0; display: grid; gap: 2px; }
+.readout dt { font: 600 .7rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.readout dd { margin: 0; font: 500 1.05rem/1.3 var(--font-key); font-variant-numeric: tabular-nums; min-width: 6ch; }
+.meter { width: 120px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.meter i { display: block; height: 100%; width: 0; background: var(--down-lo); transition: width .2s ease; }
+
+/* ---------- Клавіатура ---------- */
+.stage { overflow-x: auto; padding: 52px 8px 40px; }
+.rig { position: relative; width: max-content; margin-inline: auto; }
+.cable { position: absolute; left: 36%; top: -46px; width: 180px; height: 50px; overflow: visible; z-index: 0; }
+.cable path { fill: none; stroke: var(--cable); stroke-width: 6; stroke-linecap: round; }
+
+.board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(92, calc(var(--u) / 4));
+  grid-template-rows: var(--u) calc(var(--u) * .5) repeat(5, var(--u));
+  padding: calc(var(--u) * .55) calc(var(--u) * .6) calc(var(--u) * .5);
+  border-radius: calc(var(--u) * .55);
+  border: 1px solid var(--case-rim);
+  background: linear-gradient(180deg, var(--case-hi), var(--case-lo));
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, .35),
+    0 calc(var(--u) * .12) 0 var(--case-rim),
+    0 calc(var(--u) * .45) calc(var(--u) * .7) rgba(0, 0, 0, .3);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.key {
+  --hi: var(--key-hi);
+  --lo: var(--key-lo);
+  --edge: var(--key-edge);
+  --fg: var(--key-fg);
+  --lift: calc(var(--u) * .08);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: calc(var(--u) * .06) calc(var(--u) * .05) calc(var(--u) * .1);
+  padding: calc(var(--u) * .08);
+  border: 0;
+  border-radius: calc(var(--u) * .14);
+  font: 500 calc(var(--u) * .34)/1 var(--font-key);
+  color: var(--fg);
+  background: linear-gradient(180deg, var(--hi), var(--lo));
+  box-shadow:
+    inset 0 1px 0 var(--key-gloss),
+    0 var(--lift) 0 var(--edge),
+    0 calc(var(--lift) + var(--u) * .06) calc(var(--u) * .12) var(--key-shadow);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform .06s ease, box-shadow .06s ease;
+}
+.key:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Стан: натискалась раніше */
+.key.is-used { --hi: var(--used-hi); --lo: var(--used-lo); --edge: var(--used-edge); --fg: var(--used-fg); }
+/* Стан: перемикач увімкнено (Caps, Num, Scroll) */
+.key.is-on { --hi: var(--on-hi); --lo: var(--on-lo); --edge: var(--on-edge); --fg: var(--on-fg); --lift: calc(var(--u) * .03); transform: translateY(calc(var(--u) * .05)); }
+/* Стан: наведення */
+.key:hover, .key.s-hover { --hi: var(--hover-hi); --lo: var(--hover-lo); --edge: var(--hover-edge); --fg: var(--hover-fg); }
+.key:hover:not(.is-on), .key.s-hover { transform: translateY(-1px); }
+/* Стан: натиснута */
+.key:active, .key.is-down, .key.s-down { --hi: var(--down-hi); --lo: var(--down-lo); --edge: var(--down-edge); --fg: var(--down-fg); --lift: calc(var(--u) * .02); transform: translateY(calc(var(--u) * .06)); }
+/* Стан: заблокована */
+.key:disabled, .key.s-disabled { --hi: var(--dis-hi); --lo: var(--dis-lo); --edge: var(--dis-edge); --fg: var(--dis-fg); --lift: calc(var(--u) * .03); transform: none; cursor: not-allowed; }
+
+.key .l { display: block; }
+.key .t, .key .b { display: block; }
+.key.two {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: start;
+  padding: calc(var(--u) * .08) calc(var(--u) * .16);
+  font-size: calc(var(--u) * .3);
+}
+.key.two .t { align-self: start; }
+.key.two .b { align-self: end; }
+.key .sm { font-size: max(7px, calc(var(--u) * .2)); }
+.key .a {
+  position: absolute;
+  right: calc(var(--u) * .12);
+  bottom: calc(var(--u) * .08);
+  font-size: max(7px, calc(var(--u) * .21));
+  color: var(--key-fg2);
+}
+.key.mod {
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: calc(var(--u) * .1) calc(var(--u) * .14);
+  font-size: max(8px, calc(var(--u) * .24));
+  line-height: 1.05;
+  white-space: pre-line;
+  text-align: left;
+}
+.key.fn { font-size: calc(var(--u) * .28); }
+.key.big { font-size: calc(var(--u) * .5); }
+
+.leds {
+  grid-column: 77 / 93;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--u) * .75);
+  padding-right: calc(var(--u) * .45);
+}
+.led { display: grid; justify-items: center; gap: calc(var(--u) * .08); font: 500 max(8px, calc(var(--u) * .22))/1 var(--font-key); color: var(--key-fg2); }
+.led i {
+  width: calc(var(--u) * .2);
+  height: calc(var(--u) * .2);
+  border-radius: 50%;
+  background: var(--led-off);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .35);
+}
+.led.on i { background: var(--led-on); box-shadow: 0 0 calc(var(--u) * .22) var(--led-glow), 0 0 0 1px rgba(0, 0, 0, .15); }
+
+/* ---------- Легенда станів ---------- */
+.legend h2 { margin: 0 0 14px; font: 700 1.05rem/1.2 var(--font-display); letter-spacing: -.01em; }
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px 20px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.legend li { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.legend .demo { flex: none; width: calc(var(--u) * 1.3); height: var(--u); margin-bottom: calc(var(--u) * .1); }
+.legend strong { display: block; font-size: .95rem; }
+.legend span.txt { display: block; font-size: .85rem; color: var(--muted); }
+.hint { display: none; margin: 0; font-size: .8rem; color: var(--muted); }
+@media (max-width: 700px) { .hint { display: block; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .key, .meter i { transition: none; }
+}
+</style>
+
+<main class="page">
+  <header class="head">
+    <p class="eyebrow">Практична робота №4</p>
+    <h1>Клавіатура fullsize</h1>
+    <p class="lead">Натискайте клавіші на своїй клавіатурі або клікайте мишею. Вигляд кожної клавіші залежить від її стану.</p>
+  </header>
+
+  <section class="bar" aria-label="Керування клавіатурою">
+    <button class="btn" id="lock" type="button" aria-pressed="false">Заблокувати клавіатуру</button>
+    <button class="btn" id="reset" type="button">Скинути</button>
+    <div class="readout">
+      <dl><dt>Остання клавіша</dt><dd id="last">—</dd></dl>
+      <dl><dt>Натискались</dt><dd><span id="count">0 з 0</span><div class="meter" aria-hidden="true"><i id="meter"></i></div></dd></dl>
+    </div>
+  </section>
+
+  <div>
+    <div class="stage">
+      <div class="rig">
+        <svg class="cable" viewBox="0 0 180 50" aria-hidden="true"><path d="M10 56 C 12 22, 40 6, 82 14 S 142 42, 178 8"/></svg>
+        <div class="board" id="board" role="group" aria-label="Клавіатура fullsize">
+          <div class="leds" aria-hidden="true">
+            <span class="led" id="led-num" title="Num Lock"><i></i><b>1</b></span>
+            <span class="led" id="led-caps" title="Caps Lock"><i></i><b>A</b></span>
+            <span class="led" id="led-scroll" title="Scroll Lock"><i></i><b>↓</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="hint">Клавіатуру можна прокрутити вбік.</p>
+  </div>
+
+  <section class="legend" aria-labelledby="legend-title">
+    <h2 id="legend-title">Стани клавіш</h2>
+    <ul>
+      <li><span class="key demo" aria-hidden="true"><span class="l">A</span></span><div><strong>Звичайна</strong><span class="txt">Клавіша у спокої</span></div></li>
+      <li><span class="key demo s-hover" aria-hidden="true"><span class="l">A</span></span><div><strong>Наведення</strong><span class="txt">Курсор над клавішею</span></div></li>
+      <li><span class="key demo s-down" aria-hidden="true"><span class="l">A</span></span><div><strong>Натиснута</strong><span class="txt">Поки ви її утримуєте</span></div></li>
+      <li><span class="key demo is-used" aria-hidden="true"><span class="l">A</span></span><div><strong>Натискалась</strong><span class="txt">Вже була натиснута</span></div></li>
+      <li><span class="key demo is-on" aria-hidden="true"><span class="l">A</span></span><div><strong>Увімкнена</strong><span class="txt">Caps Lock, Num Lock, Scroll Lock</span></div></li>
+      <li><span class="key demo s-disabled" aria-hidden="true"><span class="l">A</span></span><div><strong>Заблокована</strong><span class="txt">Кнопка «Заблокувати клавіатуру»</span></div></li>
+    </ul>
+  </section>
+</main>
+
+<script>
+(function () {
+  var board = document.getElementById('board');
+  var defs = [];
+
+  function add(code, label, col, row, w, h, cls) {
+    defs.push({ code: code, label: label, col: col, row: row, w: w || 4, h: h || 1, cls: cls || '' });
+  }
+  function T(t, b, a) { return { t: t, b: b, a: a }; }
+  function Lt(l, a) { return { l: l, a: a }; }
+  function run(row, col, items) {
+    items.forEach(function (it) {
+      add(it[0], it[1], col, row, it[2], 1, it[3]);
+      col += it[2] || 4;
+    });
+  }
+  function letters(str) {
+    return str.split('').map(function (ch) { return ['Key' + ch, ch === 'E' ? Lt('E', '€') : ch]; });
+  }
+
+  /* Функціональний ряд (рядок 1) */
+  add('Escape', 'Esc', 1, 1, 4, 1, 'mod');
+  [[9, 1], [27, 5], [45, 9]].forEach(function (g) {
+    for (var i = 0; i < 4; i++) add('F' + (g[1] + i), 'F' + (g[1] + i), g[0] + i * 4, 1, 4, 1, 'fn');
+  });
+
+  /* Цифровий ряд (рядок 3) */
+  run(3, 1, [
+    ['Backquote', T('|', '\\')], ['Digit1', T('!', '1')], ['Digit2', T('"', '2')], ['Digit3', T('£', '3')],
+    ['Digit4', T('$', '4')], ['Digit5', T('%', '5')], ['Digit6', T('&', '6')], ['Digit7', T('/', '7')],
+    ['Digit8', T('(', '8')], ['Digit9', T(')', '9')], ['Digit0', T('=', '0')], ['Minus', T('?', "'")],
+    ['Equal', T('^', 'ì')], ['Backspace', '←', 8, 'big']
+  ]);
+
+  /* Ряд QWERTY (рядок 4) */
+  run(4, 1, [['Tab', 'Tab', 6, 'mod']]
+    .concat(letters('QWERTYUIOP').map(function (x) { return [x[0], x[1], 4]; }))
+    .concat([['BracketLeft', T('é', 'è', '[')], ['BracketRight', T('*', '+', ']')]]));
+  add('Enter', 'Invio', 55, 4, 6, 2, 'mod');
+
+  /* Ряд ASDF (рядок 5) */
+  run(5, 1, [['CapsLock', 'Caps\nLock', 6, 'mod']]
+    .concat(letters('ASDFGHJKL').map(function (x) { return [x[0], x[1], 4]; }))
+    .concat([['Semicolon', T('ç', 'ò', '@')], ['Quote', T('°', 'à', '#')], ['Backslash', T('§', 'ù')]]));
+
+  /* Ряд ZXCV (рядок 6) */
+  run(6, 1, [['ShiftLeft', '⇧', 5, 'big'], ['IntlBackslash', T('>', '<'), 4]]
+    .concat(letters('ZXCVBNM').map(function (x) { return [x[0], x[1], 4]; }))
+    .concat([['Comma', T(';', ','), 4], ['Period', T(':', '.'), 4], ['Slash', T('_', '-'), 4], ['ShiftRight', '⇧', 11, 'big']]));
+
+  /* Нижній ряд (рядок 7) */
+  run(7, 1, [
+    ['ControlLeft', 'Ctrl', 5, 'mod'], ['MetaLeft', 'Win', 5, 'mod'], ['AltLeft', 'Alt', 5, 'mod'],
+    ['Space', '', 25], ['AltRight', 'Alt Gr', 5, 'mod'], ['MetaRight', 'Win', 5, 'mod'],
+    ['ContextMenu', '☰', 5, 'fn'], ['ControlRight', 'Ctrl', 5, 'mod']
+  ]);
+
+  /* Блок навігації (колонки 63–74) */
+  add('PrintScreen', 'Stamp\nR Sist', 63, 1, 4, 1, 'mod');
+  add('ScrollLock', 'Bloc\nScorr', 67, 1, 4, 1, 'mod');
+  add('Pause', 'Pausa\nInterr', 71, 1, 4, 1, 'mod');
+  add('Insert', 'Ins', 63, 3, 4, 1, 'fn');
+  add('Home', '↖', 67, 3, 4, 1, 'fn');
+  add('PageUp', 'Pag↑', 71, 3, 4, 1, 'fn');
+  add('Delete', 'Canc', 63, 4, 4, 1, 'fn');
+  add('End', 'Fine', 67, 4, 4, 1, 'fn');
+  add('PageDown', 'Pag↓', 71, 4, 4, 1, 'fn');
+  add('ArrowUp', '↑', 67, 6, 4, 1, 'big');
+  add('ArrowLeft', '←', 63, 7, 4, 1, 'big');
+  add('ArrowDown', '↓', 67, 7, 4, 1, 'big');
+  add('ArrowRight', '→', 71, 7, 4, 1, 'big');
+
+  /* Цифровий блок (колонки 77–92) */
+  add('NumLock', 'Bloc\nNum', 77, 3, 4, 1, 'mod');
+  add('NumpadDivide', '/', 81, 3);
+  add('NumpadMultiply', '*', 85, 3);
+  add('NumpadSubtract', '-', 89, 3);
+  add('Numpad7', T('7', '↖'), 77, 4);
+  add('Numpad8', T('8', '↑'), 81, 4);
+  add('Numpad9', T('9', 'Pag↑'), 85, 4);
+  add('NumpadAdd', '+', 89, 4, 4, 2);
+  add('Numpad4', T('4', '←'), 77, 5);
+  add('Numpad5', '5', 81, 5);
+  add('Numpad6', T('6', '→'), 85, 5);
+  add('Numpad1', T('1', 'Fine'), 77, 6);
+  add('Numpad2', T('2', '↓'), 81, 6);
+  add('Numpad3', T('3', 'Pag↓'), 85, 6);
+  add('NumpadEnter', 'Invio', 89, 6, 4, 2, 'mod');
+  add('Numpad0', T('0', 'Ins'), 77, 7, 8);
+  add('NumpadDecimal', T('.', 'Canc'), 85, 7);
+
+  /* ---------- Побудова DOM ---------- */
+  function span(cls, text) {
+    var s = document.createElement('span');
+    s.className = cls;
+    s.textContent = text;
+    return s;
+  }
+  var map = {};
+  var names = {};
+  defs.forEach(function (d) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.tabIndex = -1;
+    b.className = 'key' + (d.cls ? ' ' + d.cls : '');
+    b.dataset.code = d.code;
+    b.setAttribute('aria-label', d.code);
+    b.style.gridColumn = d.col + ' / span ' + d.w;
+    b.style.gridRow = d.row + ' / span ' + d.h;
+    var L = d.label, name;
+    if (typeof L === 'string') {
+      if (L) b.appendChild(span('l', L));
+      name = L ? L.replace('\n', ' ') : 'Space';
+    } else if (L.t !== undefined) {
+      b.classList.add('two');
+      b.appendChild(span('t', L.t));
+      b.appendChild(span('b' + (L.b.length > 1 ? ' sm' : ''), L.b));
+      if (L.a) b.appendChild(span('a', L.a));
+      name = L.b;
+    } else {
+      b.appendChild(span('l', L.l));
+      if (L.a) b.appendChild(span('a', L.a));
+      name = L.l;
+    }
+    names[d.code] = name;
+    map[d.code] = b;
+    board.appendChild(b);
+  });
+
+  /* ---------- Стан ---------- */
+  var TOGGLES = { CapsLock: 'caps', NumLock: 'num', ScrollLock: 'scroll' };
+  var state = { caps: false, num: true, scroll: false };
+  var used = {};
+  var usedCount = 0;
+  var locked = false;
+  var held = {};
+
+  var lastEl = document.getElementById('last');
+  var countEl = document.getElementById('count');
+  var meterEl = document.getElementById('meter');
+  var lockBtn = document.getElementById('lock');
+  var resetBtn = document.getElementById('reset');
+
+  function paintToggles() {
+    Object.keys(TOGGLES).forEach(function (code) {
+      var k = TOGGLES[code];
+      map[code].classList.toggle('is-on', state[k]);
+      document.getElementById('led-' + k).classList.toggle('on', state[k]);
+    });
+  }
+  function paintCount() {
+    countEl.textContent = usedCount + ' з ' + defs.length;
+    meterEl.style.width = (usedCount / defs.length * 100) + '%';
+  }
+  function press(code, repeat, name) {
+    var el = map[code];
+    if (!el || locked) return;
+    el.classList.add('is-down');
+    if (!used[code]) {
+      used[code] = true;
+      usedCount++;
+      el.classList.add('is-used');
+      paintCount();
+    }
+    if (!repeat && TOGGLES[code]) {
+      state[TOGGLES[code]] = !state[TOGGLES[code]];
+      paintToggles();
+    }
+    lastEl.textContent = name || names[code];
+  }
+  function release(code) {
+    if (map[code]) map[code].classList.remove('is-down');
+  }
+  function releaseAll() {
+    Object.keys(map).forEach(release);
+    held = {};
+  }
+
+  /* ---------- Фізична клавіатура ---------- */
+  var PREVENT = { Space: 1, ArrowUp: 1, ArrowDown: 1, ArrowLeft: 1, ArrowRight: 1, PageUp: 1, PageDown: 1, Home: 1, End: 1, Backspace: 1, ContextMenu: 1, AltLeft: 1, AltRight: 1 };
+  window.addEventListener('keydown', function (e) {
+    if (locked || !map[e.code]) return;
+    if (PREVENT[e.code] && !e.ctrlKey && !e.metaKey) e.preventDefault();
+    press(e.code, e.repeat, e.key === ' ' ? 'Space' : e.key);
+  });
+  window.addEventListener('keyup', function (e) {
+    if (e.code && e.code.indexOf('Meta') === 0) { releaseAll(); return; }
+    release(e.code);
+  });
+  window.addEventListener('blur', releaseAll);
+
+  /* ---------- Миша та дотик ---------- */
+  board.addEventListener('pointerdown', function (e) {
+    var b = e.target.closest ? e.target.closest('.key') : null;
+    if (!b || locked) return;
+    held[e.pointerId] = b.dataset.code;
+    press(b.dataset.code, false);
+  });
+  function pointerUp(e) {
+    var code = held[e.pointerId];
+    if (code) { delete held[e.pointerId]; release(code); }
+  }
+  window.addEventListener('pointerup', pointerUp);
+  window.addEventListener('pointercancel', pointerUp);
+
+  /* ---------- Кнопки керування ---------- */
+  lockBtn.addEventListener('click', function () {
+    locked = !locked;
+    releaseAll();
+    Object.keys(map).forEach(function (c) { map[c].disabled = locked; });
+    lockBtn.setAttribute('aria-pressed', String(locked));
+    lockBtn.textContent = locked ? 'Розблокувати клавіатуру' : 'Заблокувати клавіатуру';
+  });
+  resetBtn.addEventListener('click', function () {
+    releaseAll();
+    Object.keys(used).forEach(function (c) { map[c].classList.remove('is-used'); });
+    used = {};
+    usedCount = 0;
+    state = { caps: false, num: true, scroll: false };
+    lastEl.textContent = '—';
+    paintToggles();
+    paintCount();
+  });
+
+  paintToggles();
+  paintCount();
+})();
+</script>
+
+</body></html>
